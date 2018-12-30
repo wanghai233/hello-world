@@ -1,0 +1,1 @@
+"hardware\driver\ds1302.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\ds1302.lst) OBJECT(.\output\ds1302.obj)

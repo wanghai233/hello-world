@@ -1,0 +1,80 @@
+C51 COMPILER V9.00   ADC                                                                   05/24/2017 19:26:11 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN .\output\adc.obj
+COMPILER INVOKED BY: C:\keil4\C51\BIN\C51.EXE hardware\adc.c BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OB
+                    -JECTEXTEND PRINT(.\listing\adc.lst) OBJECT(.\output\adc.obj)
+
+line level    source
+
+   1          #include "adc.h"
+   2          
+   3          
+   4          /*****************************************/
+   5          uchar ADConver(void)
+   6          {
+   7   1              uchar adc;
+   8   1              IIC_Start();
+   9   1              IIC_SendByte(0x90);  //设备地址
+  10   1              IIC_WaitAck();
+  11   1              IIC_SendByte(0x03);  //通道
+  12   1              IIC_WaitAck();
+  13   1              IIC_Stop();
+  14   1              
+  15   1              IIC_Start();
+  16   1              IIC_SendByte(0x91);
+  17   1              IIC_WaitAck();
+  18   1              adc=IIC_RecByte();
+  19   1              IIC_Ack(1);
+  20   1              IIC_Stop();
+  21   1              return adc;
+  22   1      }
+  23          /****************************************/
+  24          void DACConver(uchar dat)
+  25          {
+  26   1              IIC_Start();
+  27   1              IIC_SendByte(0x90);  //设备地址
+  28   1              IIC_WaitAck();
+  29   1              IIC_SendByte(0x40);  //通道
+  30   1              IIC_WaitAck();
+  31   1              IIC_SendByte(dat);
+  32   1              IIC_WaitAck();
+  33   1      }
+  34          /****************************************/
+  35          
+  36          
+  37          
+  38          
+  39          
+  40          
+  41          
+  42          
+  43          
+  44          
+  45          
+  46          
+  47          
+  48          
+  49          
+  50          
+  51          
+  52          
+  53          
+  54          
+C51 COMPILER V9.00   ADC                                                                   05/24/2017 19:26:11 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     78    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

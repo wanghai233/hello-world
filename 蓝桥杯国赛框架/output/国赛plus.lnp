@@ -1,0 +1,18 @@
+".\output\STARTUP.obj",
+".\output\user.obj",
+".\output\other.obj",
+".\output\digit.obj",
+".\output\key.obj",
+".\output\hard.obj",
+".\output\ds1302.obj",
+".\output\clock.obj",
+".\output\iic.obj",
+".\output\adc.obj",
+".\output\at24cxx.obj",
+".\output\onewire.obj",
+".\output\ds18b20.obj",
+".\output\ccpa.obj",
+".\output\sonic.obj",
+".\output\uart.obj" 
+TO ".\output\国赛plus" 
+PRINT(".\listing\国赛plus.m51") RAMSIZE(256) 

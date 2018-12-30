@@ -1,0 +1,1 @@
+"hardware\uart.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\uart.lst) OBJECT(.\output\uart.obj)

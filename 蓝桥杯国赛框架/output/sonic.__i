@@ -1,0 +1,1 @@
+"hardware\sonic.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\sonic.lst) OBJECT(.\output\sonic.obj)

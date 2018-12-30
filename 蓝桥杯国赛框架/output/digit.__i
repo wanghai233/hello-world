@@ -1,0 +1,1 @@
+"hardware\digit.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\digit.lst) OBJECT(.\output\digit.obj)

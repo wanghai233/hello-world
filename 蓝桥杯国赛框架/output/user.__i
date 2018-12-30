@@ -1,0 +1,1 @@
+"user\user.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\user.lst) OBJECT(.\output\user.obj)

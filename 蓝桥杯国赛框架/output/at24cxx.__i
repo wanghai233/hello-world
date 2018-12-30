@@ -1,0 +1,1 @@
+"hardware\at24cxx.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\at24cxx.lst) OBJECT(.\output\at24cxx.obj)

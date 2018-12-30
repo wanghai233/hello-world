@@ -1,0 +1,1 @@
+"hardware\key.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\key.lst) OBJECT(.\output\key.obj)

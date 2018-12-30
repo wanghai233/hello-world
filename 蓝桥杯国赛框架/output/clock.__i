@@ -1,0 +1,1 @@
+"hardware\clock.c" BROWSE INCDIR(.\user;.\hardware\driver;.\hardware) DEBUG OBJECTEXTEND PRINT(.\listing\clock.lst) OBJECT(.\output\clock.obj)
