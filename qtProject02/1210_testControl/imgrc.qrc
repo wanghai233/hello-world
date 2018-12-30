@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/好学.jpg</file>
+    </qresource>
+</RCC>
