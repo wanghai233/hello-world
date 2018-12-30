@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hai.database.MainActivity" >
+
+    
+    
+    <Button 
+    android:onClick="click1"    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="增加"        
+        />
+    <Button 
+    android:onClick="click2"    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="删除"        
+        />
+    
+    <Button 
+    android:onClick="click3"    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="更新"        
+        />
+    
+    
+    <Button 
+    android:onClick="click4"    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="查询"        
+        />
+    
+    
+</LinearLayout> 

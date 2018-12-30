@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <TextView 
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="耿立焕"
+        />
+      <TextView 
+        android:id="@+id/tv_sex"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="男"
+        />
+        <TextView 
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="你是宇宙无敌超级大帅哥，人品无敌棒"
+        />
+    
+    
+</LinearLayout>
