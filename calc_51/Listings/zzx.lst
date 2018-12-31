@@ -1,0 +1,549 @@
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE ZZX
+OBJECT MODULE PLACED IN .\Objects\zzx.obj
+COMPILER INVOKED BY: D:\dpjcx\keil\C51\BIN\C51.EXE zzx.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\zz
+                    -x.lst) TABS(2) OBJECT(.\Objects\zzx.obj)
+
+line level    source
+
+   1          #include<reg51.h>  
+   2          #include<math.h>
+   3          #define uint unsigned int  
+   4          #define uchar unsigned char
+   5          
+   6          sbit lcden=P1^2; 
+   7          sbit rs=P1^0;
+   8          sbit rw=P1^1;
+   9          
+  10          sbit LCD_RS=P1^0;//????
+  11          sbit LCD_RW=P1^1;
+  12          sbit LCD_E=P1^2;
+  13          void delay(uchar z) 
+  14          {
+  15   1      uchar y;
+  16   1      for(z;z>0;z--)
+  17   1         for(y=0;y<110;y++);
+  18   1      }
+  19          #define LCD_Data P0
+  20          #define Busy    0x80 //????LCD?????Busy??
+  21          
+  22          /********????*************************************************************/
+  23          unsigned char code uctech[] = {"lu yang"};
+  24          unsigned char code net[] = {"coder"};
+  25          
+  26          /********????*************************************************************/
+  27          void WriteDataLCD(unsigned char WDLCD);         //???
+  28          void WriteCommandLCD(unsigned char WCLCD,BuysC);    //???
+  29          unsigned char ReadDataLCD(void);            //???
+  30          unsigned char ReadStatusLCD(void);            //???
+  31          void LCDInit(void);                   //???
+  32          void DisplayOneChar(unsigned char X, unsigned char Y, unsigned char DData);     //??????????
+  33          void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData);  //????????????
+  34          void Delay5Ms(void);                  //??
+  35          void Delay400Ms(void);                  //??
+  36          
+  37          
+  38          /***********?????********************************************************/  
+  39          
+  40          
+  41          /***********???********************************************************/  
+  42          void WriteDataLCD(unsigned char WDLCD)
+  43          {
+  44   1        ReadStatusLCD(); //???
+  45   1        LCD_Data = WDLCD;
+  46   1        LCD_RS = 1;
+  47   1        LCD_RW = 0;
+  48   1        LCD_E = 0;    //?????????????????
+  49   1        LCD_E = 0;    //??
+  50   1        LCD_E = 1;
+  51   1      }
+  52          
+  53          /***********???********************************************************/  
+  54          void WriteCommandLCD(unsigned char WCLCD,BuysC) //BuysC?0??????
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 2   
+
+  55          {
+  56   1        if (BuysC) ReadStatusLCD(); //???????
+  57   1        LCD_Data = WCLCD;
+  58   1        LCD_RS = 0;
+  59   1        LCD_RW = 0; 
+  60   1        LCD_E = 0;
+  61   1        LCD_E = 0;
+  62   1        LCD_E = 1; 
+  63   1      }
+  64          
+  65          /***********???********************************************************/  
+  66          unsigned char ReadDataLCD(void)
+  67          {
+  68   1        LCD_RS = 1; 
+  69   1        LCD_RW = 1;
+  70   1        LCD_E = 0;
+  71   1        LCD_E = 0;
+  72   1        LCD_E = 1;
+  73   1        return(LCD_Data);
+  74   1      }
+  75          
+  76          /***********???*******************************************************/ 
+  77          unsigned char ReadStatusLCD(void)
+  78          {
+  79   1        LCD_Data = 0xFF; 
+  80   1        LCD_RS = 0;
+  81   1        LCD_RW = 1;
+  82   1        LCD_E = 0;
+  83   1        LCD_E = 0;
+  84   1        LCD_E = 1;
+  85   1        while (LCD_Data & Busy); //?????
+  86   1        return(LCD_Data);
+  87   1      }
+  88          
+  89          /***********???********************************************************/  
+  90          
+  91          void DisplayOneChar(unsigned char X, unsigned char Y, unsigned char DData)
+  92          {
+  93   1        Y &= 0x1;
+  94   1        X &= 0xF;         //??X????15,Y????1
+  95   1        if (Y) X |= 0x40;     //???????????+0x40;
+  96   1        X |= 0x80;      //?????
+  97   1        WriteCommandLCD(X, 0); //????????,?????
+  98   1        WriteDataLCD(DData);
+  99   1      }
+ 100          
+ 101          /***********???????????*****************************************/ 
+ 102          void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData)
+ 103          {
+ 104   1        unsigned char ListLength;
+ 105   1      
+ 106   1        ListLength = 0;
+ 107   1        Y &= 0x1;
+ 108   1        X &= 0xF;         //??X????15,Y????1
+ 109   1        while (DData[ListLength]>=0x20){ //?????????
+ 110   2            if (X <= 0xF){    //X?????0xF
+ 111   3              DisplayOneChar(X, Y, DData[ListLength]); //??????
+ 112   3              ListLength++;
+ 113   3              X++;
+ 114   3            }
+ 115   2          }
+ 116   1      }
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 3   
+
+ 117          
+ 118          /***********???********************************************************/  
+ 119          void Delay5Ms(void)
+ 120          {
+ 121   1        unsigned int TempCyc = 5552;
+ 122   1        while(TempCyc--);
+ 123   1      }
+ 124          
+ 125          /***********???********************************************************/  
+ 126          void Delay400Ms(void)
+ 127          {
+ 128   1        unsigned char TempCycA = 5;
+ 129   1        unsigned int TempCycB;
+ 130   1        while(TempCycA--){
+ 131   2            TempCycB=7269;
+ 132   2            while(TempCycB--);
+ 133   2        }
+ 134   1      }
+ 135          
+ 136          
+ 137          uchar code table[]={0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,
+ 138          0x38,0x39,0x2B,0x2D,0x2A,0x2f,0x3D,"A"};
+ 139          
+ 140          uchar code table_data[]={0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39};
+ 141          
+ 142          
+ 143          long a,b,c;
+ 144          uint temp_data;
+ 145          
+ 146          void write_com(uchar com) // 写指令
+ 147          {  
+ 148   1        rs=0;
+ 149   1        rw=0;
+ 150   1        P0=com; 
+ 151   1        delay(5);
+ 152   1        lcden=0;
+ 153   1        delay(5);
+ 154   1        lcden=1;
+ 155   1      }
+ 156          
+ 157          void write_date(uchar date) // 写数据
+ 158          {   
+ 159   1        rs=1;
+ 160   1        rw=0;
+ 161   1        P0=date;
+ 162   1        delay(5);
+ 163   1        lcden=0;
+ 164   1        delay(5);
+ 165   1        lcden=1;
+ 166   1      }
+ 167          uchar flag,fuhao;
+ 168          
+ 169          uchar k1()
+ 170          {
+ 171   1       uchar temp;
+ 172   1        int num;
+ 173   1       P2=0xfe;
+ 174   1       temp=P2;
+ 175   1       temp=temp&0xf0;
+ 176   1       while(temp!=0xf0)
+ 177   1       {
+ 178   2         delay(5);
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 4   
+
+ 179   2          temp=P2;
+ 180   2        temp=temp&0xf0;
+ 181   2        while(temp!=0xf0)
+ 182   2        {
+ 183   3         temp=P2;
+ 184   3         switch(temp)
+ 185   3         {
+ 186   4          case 0xee: num=1;
+ 187   4                   break;
+ 188   4          case 0xde: num=2;
+ 189   4                   break;
+ 190   4          case 0xbe: num=3;
+ 191   4                   break;
+ 192   4          case 0x7e: num=10;
+ 193   4                   break;
+ 194   4         }
+ 195   3         write_date(table[num]);
+ 196   3          if(num==1||num==2||num==3)
+ 197   3       {
+ 198   4          if(flag==0)
+ 199   4          {
+ 200   5            a=a*10+num;
+ 201   5          }
+ 202   4          else if(flag==1)
+ 203   4          {
+ 204   5            b=b*10+num;
+ 205   5          }
+ 206   4       }
+ 207   3       else
+ 208   3          {     
+ 209   4              flag=1;     
+ 210   4              fuhao=1;  
+ 211   4          }
+ 212   3        while(temp!=0xf0)
+ 213   3        {
+ 214   4          temp=P2;
+ 215   4            temp=temp&0xf0;
+ 216   4         }
+ 217   3         }
+ 218   2        }
+ 219   1      
+ 220   1      
+ 221   1        P2=0xfd;
+ 222   1       temp=P2;
+ 223   1       temp=temp&0xf0;
+ 224   1       while(temp!=0xf0)
+ 225   1       {
+ 226   2         delay(5);
+ 227   2          temp=P2;
+ 228   2        temp=temp&0xf0;
+ 229   2        while(temp!=0xf0)
+ 230   2        {
+ 231   3         temp=P2;
+ 232   3         switch(temp)
+ 233   3         {
+ 234   4          case 0xed: num=4;
+ 235   4                   break;
+ 236   4          case 0xdd: num=5;
+ 237   4                   break;
+ 238   4          case 0xbd: num=6;
+ 239   4                   break;
+ 240   4          case 0x7d: num=11;
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 5   
+
+ 241   4                   break;
+ 242   4         }
+ 243   3         write_date(table[num]);
+ 244   3          if(num==4||num==5||num==6)
+ 245   3       {
+ 246   4          if(flag==0)
+ 247   4          {
+ 248   5            a=a*10+num;
+ 249   5          }
+ 250   4          else if(flag==1)
+ 251   4          {
+ 252   5            b=b*10+num;
+ 253   5          }
+ 254   4       }
+ 255   3       else
+ 256   3          {
+ 257   4              flag=1;
+ 258   4              fuhao=2;      
+ 259   4          }
+ 260   3        while(temp!=0xf0)
+ 261   3        {
+ 262   4          temp=P2;
+ 263   4            temp=temp&0xf0;
+ 264   4         }
+ 265   3         }
+ 266   2       }
+ 267   1      
+ 268   1       P2=0xfb;
+ 269   1       temp=P2;
+ 270   1       temp=temp&0xf0;
+ 271   1       while(temp!=0xf0)
+ 272   1       {
+ 273   2         delay(5);
+ 274   2          temp=P2;
+ 275   2        temp=temp&0xf0;
+ 276   2        while(temp!=0xf0)
+ 277   2        {
+ 278   3         temp=P2;
+ 279   3         switch(temp)
+ 280   3         {
+ 281   4          case 0xeb: num=7;
+ 282   4                   break;
+ 283   4          case 0xdb: num=8;
+ 284   4                   break;
+ 285   4          case 0xbb: num=9;
+ 286   4                   break;
+ 287   4          case 0x7b: num=12;
+ 288   4                   break;
+ 289   4         }
+ 290   3         write_date(table[num]);
+ 291   3         if(num==7||num==8||num==9)
+ 292   3       {
+ 293   4          if(flag==0)
+ 294   4          {
+ 295   5            a=a*10+num;
+ 296   5          }
+ 297   4          else if(flag==1)
+ 298   4          {
+ 299   5            b=b*10+num;
+ 300   5          }
+ 301   4       }
+ 302   3       else
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 6   
+
+ 303   3          {
+ 304   4              flag=1;   
+ 305   4              fuhao=3;
+ 306   4          }
+ 307   3        while(temp!=0xf0)
+ 308   3        {
+ 309   4          temp=P2;
+ 310   4            temp=temp&0xf0;
+ 311   4         }
+ 312   3         }
+ 313   2       }
+ 314   1       
+ 315   1       P2=0xf7;
+ 316   1       temp=P2;
+ 317   1       temp=temp&0xf0;
+ 318   1       while(temp!=0xf0)
+ 319   1       {
+ 320   2         delay(5);
+ 321   2          temp=P2;
+ 322   2        temp=temp&0xf0;
+ 323   2        while(temp!=0xf0)
+ 324   2        {
+ 325   3         temp=P2;
+ 326   3         switch(temp)
+ 327   3         {
+ 328   4          case 0xe7: num=15;
+ 329   4                   break;
+ 330   4          case 0xd7: num=0;
+ 331   4                   break;
+ 332   4          case 0xb7: num=14;
+ 333   4                   break;
+ 334   4          case 0x77: num=13;
+ 335   4                   break;
+ 336   4         }
+ 337   3         write_date(table[num]);
+ 338   3         if(num==0)
+ 339   3       {
+ 340   4           if(flag==0)
+ 341   4          {
+ 342   5            a=a*10+num;
+ 343   5          }
+ 344   4          else if(flag==1)
+ 345   4          {
+ 346   5            b=b*10+num;
+ 347   5          }
+ 348   4       }
+ 349   3       else if(num==13)
+ 350   3          {
+ 351   4              flag=1;
+ 352   4              fuhao=4;
+ 353   4          }
+ 354   3       else if(num==15)
+ 355   3          {
+ 356   4           write_com(0x01);
+ 357   4            a=0;
+ 358   4            b=0;
+ 359   4            flag=0;
+ 360   4            fuhao=0;
+ 361   4          }
+ 362   3      else if(num==14)
+ 363   3          {
+ 364   4           if(fuhao==1)
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 7   
+
+ 365   4             {           
+ 366   5                 c=a+b; //此时c值无问题
+ 367   5               if(c<10){
+ 368   6                 write_date(table[c]);
+ 369   6                 delay(5);
+ 370   6               }
+ 371   5               else if(c>99){                
+ 372   6                 temp_data = c/100;
+ 373   6                 write_date(table_data[temp_data]);
+ 374   6                 delay(5);
+ 375   6                 temp_data = c/10%10;
+ 376   6                 write_date(table_data[temp_data]);
+ 377   6                 delay(5);
+ 378   6                 temp_data = c%10;
+ 379   6                 write_date(table_data[temp_data]);
+ 380   6                 delay(5);
+ 381   6               }
+ 382   5               else if(9<c<100){  
+ 383   6                 temp_data = c/10%10;
+ 384   6                 write_date(table_data[temp_data]);
+ 385   6                 delay(5);
+ 386   6                 temp_data = c%10;
+ 387   6                 write_date(table_data[temp_data]);
+ 388   6                 delay(5);
+ 389   6               }         
+ 390   5             }
+ 391   4            else if(fuhao==2)
+ 392   4             {                                 
+ 393   5                 c=a-b;
+ 394   5                  if(c<10){
+ 395   6                 write_date(table[c]);
+ 396   6                 delay(5);
+ 397   6               }
+ 398   5               else if(c>99){                
+ 399   6                 temp_data = c/100;
+ 400   6                 write_date(table_data[temp_data]);
+ 401   6                 delay(5);
+ 402   6                 temp_data = c/10%10;
+ 403   6                 write_date(table_data[temp_data]);
+ 404   6                 delay(5);
+ 405   6                 temp_data = c%10;
+ 406   6                 write_date(table_data[temp_data]);
+ 407   6                 delay(5);
+ 408   6               }
+ 409   5               else if(9<c<100){  
+ 410   6                 temp_data = c/10%10;
+ 411   6                 write_date(table_data[temp_data]);
+ 412   6                 delay(5);
+ 413   6                 temp_data = c%10;
+ 414   6                 write_date(table_data[temp_data]);
+ 415   6                 delay(5);
+ 416   6               }                       
+ 417   5             }
+ 418   4             else if(fuhao==3)
+ 419   4             {           
+ 420   5                 c=a*b;
+ 421   5                 if(c<10){
+ 422   6                 write_date(table[c]);
+ 423   6                 delay(5);
+ 424   6               }
+ 425   5               else if(c>99){                
+ 426   6                 temp_data = c/100;
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 8   
+
+ 427   6                 write_date(table_data[temp_data]);
+ 428   6                 delay(5);
+ 429   6                 temp_data = c/10%10;
+ 430   6                 write_date(table_data[temp_data]);
+ 431   6                 delay(5);
+ 432   6                 temp_data = c%10;
+ 433   6                 write_date(table_data[temp_data]);
+ 434   6                 delay(5);
+ 435   6               }
+ 436   5               else if(9<c<100){  
+ 437   6                 temp_data = c/10%10;
+ 438   6                 write_date(table_data[temp_data]);
+ 439   6                 delay(5);
+ 440   6                 temp_data = c%10;
+ 441   6                 write_date(table_data[temp_data]);
+ 442   6                 delay(5);
+ 443   6               }                         
+ 444   5             }
+ 445   4             else if(fuhao==4)
+ 446   4             {                     
+ 447   5                 c=a/b;
+ 448   5                  if(c<10){
+ 449   6                 write_date(table[c]);
+ 450   6                 delay(5);
+ 451   6               }
+ 452   5               else if(c>99){                
+ 453   6                 temp_data = c/100;
+ 454   6                 write_date(table_data[temp_data]);
+ 455   6                 delay(5);
+ 456   6                 temp_data = c/10%10;
+ 457   6                 write_date(table_data[temp_data]);
+ 458   6                 delay(5);
+ 459   6                 temp_data = c%10;
+ 460   6                 write_date(table_data[temp_data]);
+ 461   6                 delay(5);
+ 462   6               }
+ 463   5               else if(9<c<100){  
+ 464   6                 temp_data = c/10%10;
+ 465   6                 write_date(table_data[temp_data]);
+ 466   6                 delay(5);
+ 467   6                 temp_data = c%10;
+ 468   6                 write_date(table_data[temp_data]);
+ 469   6                 delay(5);
+ 470   6               }                     
+ 471   5             }
+ 472   4            
+ 473   4          }
+ 474   3        while(temp!=0xf0)
+ 475   3        {
+ 476   4          temp=P2;
+ 477   4            temp=temp&0xf0;
+ 478   4         }
+ 479   3         }
+ 480   2       }
+ 481   1       
+ 482   1        return num;
+ 483   1      }
+ 484          
+ 485          void init() 
+ 486          {    
+ 487   1      lcden=0; 
+ 488   1      write_com(0x38); //1602开显示
+C51 COMPILER V9.55   ZZX                                                                   12/09/2018 15:07:07 PAGE 9   
+
+ 489   1      write_com(0x0f); //打开光标
+ 490   1      write_com(0x06); //每当写一个字符，光标加一
+ 491   1      write_com(0x01); //清屏
+ 492   1      write_com(0x80); //光标定位到第一行
+ 493   1      a=0;
+ 494   1      b=0;
+ 495   1      c=0;
+ 496   1      flag=0;
+ 497   1      fuhao=0;
+ 498   1      temp_data = 0;
+ 499   1      }
+ 500          
+ 501          main()
+ 502          {
+ 503   1      init();
+ 504   1      while(1)
+ 505   1      {
+ 506   2       k1();
+ 507   2      }
+ 508   1      }
+ 509          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2036    ----
+   CONSTANT SIZE    =     41    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16      11
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

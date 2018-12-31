@@ -1,0 +1,3 @@
+".\Objects\zzx.obj" 
+TO ".\Objects\sd" 
+PRINT(".\Listings\sd.m51") RAMSIZE(256) 
