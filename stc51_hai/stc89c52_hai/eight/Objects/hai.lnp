@@ -1,0 +1,3 @@
+".\Objects\hai.obj" 
+TO ".\Objects\hai" 
+PRINT(".\Listings\hai.m51") RAMSIZE(256) 

@@ -1,0 +1,113 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/01/2019  20:52:45  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\hai.obj TO .\Objects\hai PRINT (.\Listings\hai.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\hai.obj (HAI)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\hai (HAI)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0035H     UNIT         ?PR?MAIN?HAI
+            CODE    0835H     001DH     UNIT         ?PR?_DELAYMS?HAI
+            CODE    0852H     000CH     UNIT         ?C_C51STARTUP
+            CODE    085EH     000BH     UNIT         ?CO?HAI
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\hai (HAI)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?HAI
+
+?PR?MAIN?HAI
+  +--> ?CO?HAI
+  +--> ?PR?_DELAYMS?HAI
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\hai (HAI)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HAI
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:083CH         PUBLIC        _DelayMS
+  C:0800H         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/01/2019  20:52:45  PAGE 2
+
+
+  B:0090H.0       PUBLIC        P10
+  B:0090H.1       PUBLIC        P11
+  C:085EH         PUBLIC        DSY_CODE
+  -------         PROC          L?0015
+  -------         ENDPROC       L?0015
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:083CH         LINE#         9
+  C:083CH         LINE#         10
+  C:083CH         LINE#         12
+  C:0851H         LINE#         13
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0800H         LINE#         15
+  C:0800H         LINE#         16
+  C:0800H         LINE#         17
+  C:0802H         LINE#         19
+  C:0804H         LINE#         20
+  C:0804H         LINE#         21
+  C:0804H         LINE#         22
+  C:0805H         LINE#         23
+  C:080BH         LINE#         24
+  C:080DH         LINE#         25
+  C:0815H         LINE#         26
+  C:0815H         LINE#         27
+  C:0817H         LINE#         28
+  C:0819H         LINE#         29
+  C:0821H         LINE#         30
+  C:0824H         LINE#         32
+  C:0826H         LINE#         33
+  C:0828H         LINE#         34
+  C:082FH         LINE#         35
+  C:0832H         LINE#         38
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        HAI
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 005DH BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=108
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

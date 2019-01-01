@@ -1,0 +1,186 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/01/2019  20:13:36  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\hai.obj TO .\Objects\hai PRINT (.\Listings\hai.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\hai.obj (HAI)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULCMP)
+
+
+LINK MAP OF MODULE:  .\Objects\hai (HAI)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000CH     UNIT         _DATA_GROUP_
+            DATA    0014H     0004H     UNIT         ?DT?HAI
+            IDATA   0018H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     00DFH     UNIT         ?C?LIB_CODE
+            CODE    08DFH     008AH     UNIT         ?PR?_DELAYMS?HAI
+            CODE    0969H     0086H     UNIT         ?PR?_DISPLAY?HAI
+            CODE    09EFH     004AH     UNIT         ?PR?MAIN?HAI
+            CODE    0A39H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0A45H     000AH     UNIT         ?CO?HAI
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\hai (HAI)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?HAI
+
+?PR?MAIN?HAI                   -----    -----
+  +--> ?PR?_DISPLAY?HAI
+  +--> ?PR?_DELAYMS?HAI
+
+?PR?_DISPLAY?HAI               0008H    0004H
+  +--> ?PR?_DELAYMS?HAI
+  +--> ?CO?HAI
+
+?PR?_DELAYMS?HAI               000CH    0008H
+  +--> ?CO?HAI
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/01/2019  20:13:36  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\hai (HAI)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HAI
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:0090H.0       PUBLIC        N1
+  B:0090H.1       PUBLIC        N2
+  D:0080H         PUBLIC        P0
+  B:0090H.2       PUBLIC        N3
+  D:0090H         PUBLIC        P1
+  B:0090H.3       PUBLIC        N4
+  D:00B0H         PUBLIC        P3
+  B:00B0H.7       PUBLIC        S1
+  B:00A8H.7       PUBLIC        EA
+  C:0A45H         PUBLIC        table
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:09EFH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:00A8H.0       PUBLIC        EX0
+  D:0014H         PUBLIC        num
+  D:00C8H         PUBLIC        T2CON
+  C:08FCH         PUBLIC        _delayms
+  C:0969H         PUBLIC        _display
+  D:00D0H         PUBLIC        PSW
+  C:08E1H         SYMBOL        L?0021
+  C:08EEH         SYMBOL        L?0022
+  C:08F6H         SYMBOL        L?0023
+  -------         PROC          L?0020
+  -------         ENDPROC       L?0020
+  C:08E1H         SYMBOL        L?0021
+  C:08EEH         SYMBOL        L?0022
+  C:08F6H         SYMBOL        L?0023
+  -------         PROC          _DELAYMS
+  D:0004H         SYMBOL        xms
+  -------         DO            
+  D:000CH         SYMBOL        i
+  D:0010H         SYMBOL        j
+  -------         ENDDO         
+  C:08FCH         LINE#         15
+  C:08FCH         LINE#         16
+  C:08FCH         LINE#         18
+  C:0917H         LINE#         19
+  C:0968H         LINE#         20
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _DISPLAY
+  D:0008H         SYMBOL        num
+  C:0969H         LINE#         21
+  C:0971H         LINE#         22
+  C:0971H         LINE#         23
+  C:0973H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/01/2019  20:13:36  PAGE 3
+
+
+  C:0978H         LINE#         25
+  C:097BH         LINE#         26
+  C:097EH         LINE#         27
+  C:0980H         LINE#         29
+  C:0982H         LINE#         30
+  C:099EH         LINE#         31
+  C:09A1H         LINE#         32
+  C:09A4H         LINE#         33
+  C:09A6H         LINE#         35
+  C:09A8H         LINE#         36
+  C:09C3H         LINE#         37
+  C:09C6H         LINE#         38
+  C:09C9H         LINE#         39
+  C:09CBH         LINE#         41
+  C:09CDH         LINE#         42
+  C:09E6H         LINE#         43
+  C:09E9H         LINE#         44
+  C:09ECH         LINE#         45
+  C:09EEH         LINE#         71
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          MAIN
+  C:09EFH         LINE#         74
+  C:09EFH         LINE#         75
+  C:09EFH         LINE#         76
+  C:09F2H         LINE#         77
+  C:09F4H         LINE#         78
+  C:09F6H         LINE#         81
+  C:0A01H         LINE#         84
+  C:0A01H         LINE#         85
+  C:0A01H         LINE#         86
+  C:0A01H         LINE#         87
+  C:0A01H         LINE#         88
+  C:0A0CH         LINE#         90
+  C:0A0FH         LINE#         91
+  C:0A0FH         LINE#         92
+  C:0A14H         LINE#         93
+  C:0A17H         LINE#         94
+  C:0A17H         LINE#         95
+  C:0A2CH         LINE#         96
+  C:0A2CH         LINE#         97
+  C:0A2FH         LINE#         98
+  C:0A34H         LINE#         99
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        HAI
+
+  -------         MODULE        ?C?ULDIV
+  C:083CH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?ULCMP
+  C:08CEH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0164H BYTE (17%) *
+******************************************************************************
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/01/2019  20:13:36  PAGE 4
+
+
+Program Size: data=25.0 xdata=0 code=594
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
